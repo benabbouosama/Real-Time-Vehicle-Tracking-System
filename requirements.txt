@@ -3,5 +3,4 @@ simplejson==3.19.2
 kafka-python==2.0.2
 requests==2.31.0
 confluent-kafka==2.3.0
-cassandra-driver==3.29.1
-python-dotenv
+python-dotenv==1.0.1
