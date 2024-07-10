@@ -14,6 +14,7 @@ OUTPUT_PATH = os.getenv("OUTPUT_PATH")
 
 logging.basicConfig(level=logging.INFO)
 
+
 def read_kafka_topic(spark, topic, schema):
     try:
         return (
@@ -49,7 +50,7 @@ def main():
             .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1") \
             .config("spark.hadoop.fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
             .config("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-            .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "keyfile.json") \
+            .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "../keys/keyfile.json") \
             .getOrCreate()
 
         spark.sparkContext.setLogLevel('WARN')
@@ -60,20 +61,18 @@ def main():
                     .add("deviceId", StringType())
                     .add("timestamp", TimestampType())
                     .add("speed", DoubleType())
-                    .add("Direction", StringType())
+                    .add("direction", StringType())
                     .add("make", StringType())
                     .add("model", StringType())
                     .add("year", IntegerType())
-                    .add("location", StringType())
             )
         gps_schema = (
                 StructType()
                     .add("id", StringType())
                     .add("deviceId", StringType())
                     .add("timestamp", TimestampType())
-                    .add("speed", DoubleType())
-                    .add("Direction", StringType())
-                    .add("vehiculeType", StringType())
+                    .add("vehicleType", StringType())
+                    .add("location", StringType())
             )
 
         weather_schema = (
@@ -90,13 +89,13 @@ def main():
             )
 
         # Read data from Kafka topic
-        vehicule_df = read_kafka_topic(spark, "vehicule_data", vehicule_schema)
+        vehicule_df = read_kafka_topic(spark, "vehicle_data", vehicule_schema)
         gps_df = read_kafka_topic(spark, "gps_data", gps_schema)
         weather_df = read_kafka_topic(spark, "weather_data", weather_schema)
 
         # Write data to GCS bucket (in a csv format)
         if all(df is not None for df in [vehicule_df, gps_df, weather_df]):
-            write_to_gcs(vehicule_df, OUTPUT_PATH + "/vehicule_data", CHECKPOINT_LOCATION + "/vehicule_checkpoint")
+            write_to_gcs(vehicule_df, OUTPUT_PATH + "/vehicle_data", CHECKPOINT_LOCATION + "/vehicle_checkpoint")
             write_to_gcs(gps_df, OUTPUT_PATH + "/gps_data", CHECKPOINT_LOCATION + "/gps_checkpoint")
             write_to_gcs(weather_df, OUTPUT_PATH + "/weather_data", CHECKPOINT_LOCATION + "/weather_checkpoint")
 
