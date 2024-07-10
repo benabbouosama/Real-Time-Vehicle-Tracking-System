@@ -1,0 +1,14 @@
+triggers:
+- description: null
+  envs: []
+  last_enabled_at: 2024-07-10 16:06:33.438110
+  name: hourly_trigger
+  pipeline_uuid: my_pipeline
+  schedule_interval: '@hourly'
+  schedule_type: time
+  settings: null
+  sla: null
+  start_time: 2024-07-10 16:04:00
+  status: inactive
+  token: 91593857bfdf4ca9989b08ff504668e6
+  variables: {}

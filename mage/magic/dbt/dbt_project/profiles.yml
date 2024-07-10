@@ -1,0 +1,10 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: project_id
+      dataset: my_dataset
+      threads: 1
+      keyfile: '/home/src//keyfile.json'

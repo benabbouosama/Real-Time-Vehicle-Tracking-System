@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: my_dataset
+    tables:
+      - name: vehicle_data
+        description: "Raw vehicle data"
+      - name: gps_data
+        description: "Raw GPS data"
+      - name: weather_data
+        description: "Raw weather"
+

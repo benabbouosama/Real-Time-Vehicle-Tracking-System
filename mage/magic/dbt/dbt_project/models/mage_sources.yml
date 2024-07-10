@@ -1,0 +1,19 @@
+sources:
+- description: Dataframes Mage upstream blocks
+  loader: mage
+  name: mage_dbt_project
+  schema: my_dataset
+  tables:
+  - description: Dataframe for block `write_data` of the `mypipeline` mage pipeline.
+    identifier: mage_mypipeline_write_data
+    meta:
+      block_uuid: write_data
+      pipeline_uuid: mypipeline
+    name: mypipeline_write_data
+  - description: Dataframe for block `write_to_bq` of the `my_pipeline` mage pipeline.
+    identifier: mage_my_pipeline_write_to_bq
+    meta:
+      block_uuid: write_to_bq
+      pipeline_uuid: my_pipeline
+    name: my_pipeline_write_to_bq
+version: 2

@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: vehicle_tracking_system
+    tables:
+      - name: staging_vehicule_data
+        description: "Staging table for vehicle data"
+      - name: staging_gps_data
+        description: "Staging table for GPS data"
+      - name: staging_weather_data
+        description: "Staging table for weather data"
